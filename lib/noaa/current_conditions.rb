@@ -71,7 +71,11 @@ module NOAA
     # Return the NWS image URL for the current weather as string
     #
     def image_url
-      @image_url ||= "#{text_from_node('icon_url_base')}#{text_from_node('icon_url_name')}"
+      if File.exists?("#{RAILS_ROOT}/public/images/noaa/#{icon_url_name}") then
+        @image_url = icon_url_name
+      else
+        @image_url ||= "#{text_from_node('icon_url_base')}#{text_from_node('icon_url_name')}"
+      end
     end
 
     #
